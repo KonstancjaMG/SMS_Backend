@@ -1,5 +1,6 @@
 import './config/database.js';
-import './config/associations.js'
+import './config/associations.js';
+import './examplevalues/users.js';
 
 import express from 'express';
 import cors from 'cors';
