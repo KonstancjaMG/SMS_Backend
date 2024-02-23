@@ -1,4 +1,5 @@
 import './config/database.js';
+import './config/associations.js'
 
 import express from 'express';
 import cors from 'cors';
