@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  mysql-hicoders:
+    container_name: sms-backend
+    image: mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=checkpoint_24
+      - MYSQL_PASSWORD=checkpoint_24
+      - MYSQL_USER=hicoders
+      - MYSQL_DATABASE=SMS
+    volumes:
+      - ./mysqlDB:/var/lib/meinsql/data
+  phpmyadmin-hicoders:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma-sms
+    depends_on:
+        - mysql-hicoders
+    environment:
+        PMA_HOST: mysql-hicoders
+    restart: always
+    ports:
+        - 8080:80

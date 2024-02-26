@@ -18,7 +18,7 @@ const connectToDatabase = async () => {
     try {
         await sequelize.authenticate();
         console.log(`Connection with the database has been established successfully.`);
-        await sequelize.sync({ force: true }); // WARNING: `force: true` will DROP existing tables and recreate them. Use with caution.
+        await sequelize.sync({ force: false });
         console.log('All models were synchronized successfully.');
     } catch (error) {
         console.error(`Unable to connect to the database :(`);
