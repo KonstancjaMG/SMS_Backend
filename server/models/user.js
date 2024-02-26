@@ -5,8 +5,8 @@ import bcrypt from 'bcrypt';
 const User = sequelize.define('User', {
   id: {
     type: DataTypes.UUID,
-    primaryKey: true,
-    defaultValue: DataTypes.UUIDV4
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
   },
   firstName: DataTypes.STRING,
   lastName: DataTypes.STRING,
@@ -15,11 +15,11 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     set(value) {
-      const salt = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(value, salt);
+      const hash = bcrypt.hashSync(value, 10);
       this.setDataValue('passwordHash', hash);
+    }
   }
-}}, {
+}, {
   timestamps: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at'
