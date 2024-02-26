@@ -7,18 +7,13 @@ const getUsers = async () => {
       include: [
         {
           model: Role,
-          as: 'Roles',
-          through: { attributes: [] }, // Excludes join table attributes
-        },
-        // {
-        //   model: Profile,
-        //   as: 'profile' // Adjust based on how you've set up your association
-        // }
+          // 'as' should match the alias used in the association definition
+        }
       ],
     });
     return users;
   } catch (error) {
-    console.error('Error fetching users with roles and profiles:', error);
+    console.error('Error fetching users with roles:', error);
     throw error;
   }
 };
@@ -30,13 +25,8 @@ const getUserById = async (id) => {
       include: [
         {
           model: Role,
-          as: 'Roles',
-          through: { attributes: [] },
-        },
-        // {
-        //   model: Profile,
-        //   as: 'profile' // Make sure this matches your association alias
-        // }
+          // 'as' should match the alias used in the association definition
+        }
       ],
     });
     return user;
@@ -52,19 +42,14 @@ const getUsersByRoleName = async (roleName) => {
       include: [
         {
           model: Role,
-          as: 'Roles',
+          // 'as' should match the alias used in the association definition
           where: { name: roleName },
-          through: { attributes: [] },
         },
-        // {
-        //   model: Profile,
-        //   as: 'profile' // Consistent with your association's naming
-        // }
       ],
     });
     return users;
   } catch (error) {
-    console.error(`Error fetching users with role ${roleName} and profiles:`, error);
+    console.error(`Error fetching users with role ${roleName}:`, error);
     throw error;
   }
 };

@@ -11,7 +11,7 @@ import Grade from '../models/grade.js';
 
 // User associations
 User.hasOne(Profile);
-User.belongsToMany(Role, { through: 'UserRole' });
+User.belongsTo(Role);
 User.hasMany(Notification);
 User.hasMany(Enrollment);
 User.hasMany(ClassAssignment);
@@ -20,7 +20,7 @@ User.hasMany(ClassAssignment);
 Profile.belongsTo(User);
 
 // Role associations
-Role.belongsToMany(User, { through: 'UserRole' });
+Role.hasMany(User);
 
 // Notification associations
 Notification.belongsTo(User);
