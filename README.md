@@ -49,5 +49,6 @@ Develop and deploy a RESTful API for a School Management System that manages stu
 * The final API should be live on Vercel, with the URL provided in the submission.
 
 # 1. Domain Model Design
-![DMD drawio](https://github.com/KonstancjaMG/SMS_Backend/assets/143395555/40c745c1-bcc9-41be-8d5b-93b1c46eefdb)
+![DMD drawio](https://github.com/KonstancjaMG/SMS_Backend/assets/143395555/4b2579b4-42a9-429e-bdc5-7a5dc078afa3)
+
 
