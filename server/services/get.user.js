@@ -7,7 +7,6 @@ const getUsers = async () => {
       include: [
         {
           model: Role,
-          // 'as' should match the alias used in the association definition
         }
       ],
     });
@@ -25,7 +24,6 @@ const getUserById = async (id) => {
       include: [
         {
           model: Role,
-          // 'as' should match the alias used in the association definition
         }
       ],
     });
@@ -42,7 +40,6 @@ const getUsersByRoleName = async (roleName) => {
       include: [
         {
           model: Role,
-          // 'as' should match the alias used in the association definition
           where: { name: roleName },
         },
       ],
