@@ -1,7 +1,7 @@
 import Role from "../../models/role.js";
 
 async function seedRoles() {
-  const roles = ['Administrator', 'Teacher', 'Student'];
+  const roles = ['administrator', 'teacher', 'student'];
 
   const rolePromises = roles.map(async (roleName) => {
     const [role, created] = await Role.findOrCreate({

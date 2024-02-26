@@ -13,9 +13,9 @@ async function seedUsers() {
     // await sequelize.sync({ force: true });
 
     // Find roles
-    const adminRole = await Role.findOne({ where: { name: 'Administrator' } });
-    const teacherRole = await Role.findOne({ where: { name: 'Teacher' } });
-    const studentRole = await Role.findOne({ where: { name: 'Student' } });
+    const adminRole = await Role.findOne({ where: { name: 'administrator' } });
+    const teacherRole = await Role.findOne({ where: { name: 'teacher' } });
+    const studentRole = await Role.findOne({ where: { name: 'student' } });
 
     // Create users
     const adminUser = await User.create({
