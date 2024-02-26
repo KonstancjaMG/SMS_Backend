@@ -1,4 +1,4 @@
-# SMS_Backend
+# SMS_Backend Overview
 Develop and deploy a RESTful API for a School Management System that manages students, teachers, classes, and optionally grades. This project will emphasize the creation of a robust backend using Node.js, Express.js, Sequelize, MySQL, and integration with other technologies for authentication, notifications, and file management. The final system should be deployed to Vercel for live interaction.
 
 ## Key Features & Functionalities
@@ -15,7 +15,7 @@ Develop and deploy a RESTful API for a School Management System that manages stu
 * Deploy the backend system to Vercel.
 
 ## Detailed Use Cases/User Stories
-As Admin, I wanto
+### As Admin, I want to
 * Add, view, edit, and delete teacher and student profiles.
 * Create classes and assign teachers to them.
 * View reports on class attendance and overall grades.
@@ -48,5 +48,5 @@ As Admin, I wanto
 * Include a .env.example file in the repository for necessary environment variables.
 * The final API should be live on Vercel, with the URL provided in the submission.
 
-# Domain Model Design
+# 1. Domain Model Design
 ![DMD drawio](https://github.com/KonstancjaMG/SMS_Backend/assets/143395555/726a071b-e9f2-45ab-9257-c4cac3ed31aa)
