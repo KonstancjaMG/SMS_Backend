@@ -1,4 +1,3 @@
-// seed.js
 import sequelize from "../database.js";
 import '../associations.js';
 import seedRoles from "./seed.roles.js";

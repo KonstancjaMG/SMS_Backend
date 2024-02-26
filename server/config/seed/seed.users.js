@@ -1,4 +1,3 @@
-// seed.users.js
 import bcrypt from 'bcrypt';
 import User from '../../models/user.js';
 import Role from '../../models/role.js';
@@ -10,13 +9,10 @@ async function hashPassword(password) {
 
 async function seedUsers() {
   try {
-
-    // Find roles
     const adminRole = await Role.findOne({ where: { name: 'administrator' } });
     const teacherRole = await Role.findOne({ where: { name: 'teacher' } });
     const studentRole = await Role.findOne({ where: { name: 'student' } });
 
-    // Create users and link them to the seeded profiles and roles
     const adminUser = await User.create({
       firstName: 'Admin',
       lastName: 'Istrator',

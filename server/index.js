@@ -1,6 +1,5 @@
 import './config/database.js';
 import './config/associations.js';
-import './examplevalues/users.js';
 
 import usersRouter from './controllers/user.js'
 

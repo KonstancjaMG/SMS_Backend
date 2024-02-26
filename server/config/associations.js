@@ -9,11 +9,9 @@ import Material from '../models/material.js';
 import Attendance from '../models/attendance.js';
 import Grade from '../models/grade.js';
 
-// Assuming all models are imported
-
 // User associations
 User.hasOne(Profile);
-User.belongsTo(Role);
+User.belongsToMany(Role, { through: 'UserRole' });
 User.hasMany(Notification);
 User.hasMany(Enrollment);
 User.hasMany(ClassAssignment);
@@ -22,7 +20,7 @@ User.hasMany(ClassAssignment);
 Profile.belongsTo(User);
 
 // Role associations
-Role.hasMany(User);
+Role.belongsToMany(User, { through: 'UserRole' });
 
 // Notification associations
 Notification.belongsTo(User);
