@@ -1,9 +1,10 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
-const Class = sequelize.define('Class', {
+const Enrollment = sequelize.define('Enrollment', {
     id: { type: DataTypes.UUID, primaryKey: true },
-    title: { type: DataTypes.STRING }
+    grade: { type: DataTypes.INTEGER }
   });
+
+export default Enrollment
   
-export default Class;

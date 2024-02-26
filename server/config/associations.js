@@ -1,34 +1,54 @@
 import User from '../models/user.js';
-import AdministratorProfile from '../models/admin.profile.js';
-import TeacherProfile from '../models/teacher.profile.js';
-import StudentProfile from '../models/student.profile.js';
+import Role from '../models/role.js';
+import Profile from '../models/profile.js'
+import Notification from '../models/notification.js'
+import ClassAssignment from '../models/classAssignment.js';
 import Class from '../models/class.js';
+import Enrollment from '../models/enrollment.js';
+import Material from '../models/material.js';
+import Attendance from '../models/attendance.js';
 import Grade from '../models/grade.js';
-import EducationalMaterial from '../models/materials.js';
-import Schedule from '../models/schedule.js';
 
-User.hasOne(AdministratorProfile, { foreignKey: 'user_id' });
-User.hasOne(TeacherProfile, { foreignKey: 'user_id' });
-User.hasOne(StudentProfile, { foreignKey: 'user_id' });
+// Assuming all models are imported
 
-AdministratorProfile.belongsTo(User, { foreignKey: 'user_id' });
+// User associations
+User.hasOne(Profile);
+User.belongsTo(Role);
+User.hasMany(Notification);
+User.hasMany(Enrollment);
+User.hasMany(ClassAssignment);
 
-TeacherProfile.belongsTo(User, { foreignKey: 'user_id' });
-TeacherProfile.hasMany(Class, { foreignKey: 'teacher_id' });
-TeacherProfile.hasMany(EducationalMaterial, { foreignKey: 'teacher_id' });
+// Profile associations
+Profile.belongsTo(User);
 
-StudentProfile.belongsTo(User, { foreignKey: 'user_id' });
-StudentProfile.hasMany(Grade, { foreignKey: 'student_id' });
+// Role associations
+Role.hasMany(User);
 
-Class.belongsTo(TeacherProfile, { foreignKey: 'teacher_id' });
-Class.hasMany(EducationalMaterial, { foreignKey: 'class_id' });
-Class.hasMany(Grade, { foreignKey: 'class_id' });
+// Notification associations
+Notification.belongsTo(User);
 
-Class.hasOne(Schedule, { foreignKey: 'class_id' });
-Schedule.belongsTo(Class, { foreignKey: 'class_id' });
+// Class associations
+Class.hasMany(Material);
+Class.hasMany(Enrollment);
+Class.hasMany(ClassAssignment);
 
-Grade.belongsTo(StudentProfile, { foreignKey: 'student_id' });
-Grade.belongsTo(Class, { foreignKey: 'class_id' });
+// Material associations
+Material.belongsTo(Class);
 
-EducationalMaterial.belongsTo(Class, { foreignKey: 'class_id' });
-EducationalMaterial.belongsTo(TeacherProfile, { foreignKey: 'teacher_id' });
+// Enrollment associations
+Enrollment.belongsTo(User);
+Enrollment.belongsTo(Class);
+Enrollment.hasMany(Attendance);
+Enrollment.hasMany(Grade);
+
+// ClassAssignment associations
+ClassAssignment.belongsTo(User);
+ClassAssignment.belongsTo(Class);
+
+// Attendance associations
+Attendance.belongsTo(Enrollment);
+
+// Grade associations
+Grade.belongsTo(Enrollment);
+
+
