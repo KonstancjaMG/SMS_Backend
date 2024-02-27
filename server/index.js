@@ -1,8 +1,10 @@
 import './config/database.js';
 import './config/associations.js';
 
-import userService from './controllers/user.js'
-import profileService from './controllers/profile.js'
+import userRouter from './controllers/user.js'
+import profileRouter from './controllers/profile.js'
+import classRouter from './controllers/class.js'
+import ClassAssignmentRouter from './controllers/classAssignment.js';
 
 import express from 'express';
 import cors from 'cors';
@@ -16,8 +18,10 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-app.use('/api', userService)
-app.use('/api', profileService)
+app.use('/api', userRouter)
+app.use('/api', profileRouter)
+app.use('/api', classRouter)
+app.use('/api', ClassAssignmentRouter)
 
 app.listen(port, () => {
     console.log(`Server is alive and kicking on port ${port}.`)
