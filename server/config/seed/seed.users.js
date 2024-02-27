@@ -1,11 +1,6 @@
-import bcrypt from 'bcrypt';
 import User from '../../models/user.js';
 import Role from '../../models/role.js';
-
-async function hashPassword(password) {
-  const salt = bcrypt.genSaltSync(10);
-  return bcrypt.hashSync(password, salt);
-}
+import hashPassword from '../../utils/hashPassword.js';
 
 async function seedUsers() {
   try {

@@ -3,6 +3,8 @@ import './config/associations.js';
 
 import getUsersRouter from './controllers/get.user.js'
 import postUserRouter from './controllers/post.user.js'
+import putUserRouter from './controllers/put.user.js'
+import deleteUserRouter from './controllers/delete.user.js'
 
 import express from 'express';
 import cors from 'cors';
@@ -18,6 +20,8 @@ app.use(cors());
 
 app.use('/api', getUsersRouter)
 app.use('/api', postUserRouter)
+app.use('/api', putUserRouter)
+app.use('/api', deleteUserRouter)
 
 app.listen(port, () => {
     console.log(`Server is alive and kicking on port ${port}.`)
