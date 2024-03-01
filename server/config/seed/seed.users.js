@@ -16,7 +16,7 @@ async function seedUsers() {
       firstName: 'Admin',
       lastName: 'Istrator',
       email: 'admin@example.com',
-      passwordHash: await hashPassword('adminPassword'),
+      passwordHash: 'adminPassword',
       RoleId: adminRole.id
     });
 
@@ -26,7 +26,7 @@ async function seedUsers() {
       firstName: 'Teacher',
       lastName: 'Person',
       email: 'teacher@example.com',
-      passwordHash: await hashPassword('teacherPassword'),
+      passwordHash: 'teacherPassword',
       RoleId: teacherRole.id
     });
 
@@ -36,7 +36,7 @@ async function seedUsers() {
       firstName: 'Student',
       lastName: 'Learner',
       email: 'student@example.com',
-      passwordHash: await hashPassword('studentPassword'),
+      passwordHash: 'studentPassword',
       RoleId: studentRole.id
     });
 

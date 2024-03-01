@@ -38,16 +38,16 @@ router.get('/role/:roleName', async (req, res) => {
 });
 
 router.post('/users', async (req, res) => {
-    const { firstName, lastName, email, password, roleName } = req.body;
-  
-    const { user, error } = await userService.createUser({ firstName, lastName, email, password, roleName });
-  
-    if (error) {
-      return res.status(500).json({ message: "Error creating user", error: error.message });
-    }
-  
-    res.status(201).json({ user });
-  });
+  const { firstName, lastName, email, password, roleName } = req.body;
+
+  const { user, error } = await userService.createUser({ firstName, lastName, email, password, roleName });
+
+  if (error) {
+      return res.status(500).json({ message: "Error creating user", error });
+  }
+
+  res.status(201).json(user); // Send back the user and the token
+});
 
   router.put('/users/:id', async (req, res) => {
     const { id } = req.params;
@@ -77,5 +77,18 @@ router.post('/users', async (req, res) => {
       res.status(500).json({ message: "Error deleting user", error: error.message });
     }
   });
+
+  // Assuming userService is imported at the top
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  const { user, token, error } = await userService.loginUser(email, password);
+
+  if (error) {
+      return res.status(401).json({ message: "Login failed", error }); // 401 Unauthorized
+  }
+
+  res.json({ message: 'Login successful', user, token });
+});
 
 export default router;

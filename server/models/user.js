@@ -25,8 +25,6 @@ const User = sequelize.define('User', {
   updatedAt: 'updated_at'
 });
 
-User.beforeCreate((user) => {
-  user.passwordHash = bcrypt.hashSync(user.passwordHash, bcrypt.genSaltSync(10));
-});
+
   
   export default User;

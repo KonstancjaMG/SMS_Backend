@@ -7,11 +7,11 @@ const Schedule = sequelize.define('Schedule', {
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
-    Monday: { type: DataTypes.DATE },
-    Tuesday: { type: DataTypes.DATE },
-    Wednesday: { type: DataTypes.DATE },
-    Thursday: { type: DataTypes.DATE },
-    Friday: { type: DataTypes.DATE }
+    Monday: { type: DataTypes.TIME, allowNull: true },
+    Tuesday: { type: DataTypes.TIME, allowNull: true },
+    Wednesday: { type: DataTypes.TIME, allowNull: true },
+    Thursday: { type: DataTypes.TIME, allowNull: true },
+    Friday: { type: DataTypes.TIME, allowNull: true }
   });
 
 export default Schedule

@@ -27,12 +27,13 @@ Role.hasMany(User);
 Notification.belongsTo(User);
 
 // Class associations
-Class.hasMany(Material);
+Class.belongsToMany(Material, { through: 'ClassMaterials' });
 Class.hasMany(Enrollment);
 Class.hasMany(ClassAssignment);
+Class.hasOne(Schedule);
 
 // Material associations
-Material.belongsTo(Class);
+Material.belongsToMany(Class, { through: 'ClassMaterials' });
 
 // Enrollment associations
 Enrollment.belongsTo(User);
@@ -46,10 +47,9 @@ ClassAssignment.belongsTo(Class);
 
 // Attendance associations
 Attendance.belongsTo(Enrollment);
-Attendance.hasMany(Schedule);
 
 // Schedule associations
-Schedule.belongsTo(Attendance);
+Schedule.belongsTo(Class);
 
 // Grade associations
 Grade.belongsTo(Enrollment);

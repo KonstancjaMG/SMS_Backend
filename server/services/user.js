@@ -2,6 +2,9 @@ import User from '../models/user.js';
 import Role from '../models/role.js';
 import getRoleId from '../utils/getRole.js';
 import hashPassword from '../utils/hashPassword.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
 
 const getUsers = async () => {
     try {
@@ -52,34 +55,35 @@ const getUsers = async () => {
       throw error;
     }
   };
-
-const createUser = async ({ firstName, lastName, email, password, roleName }) => {
+  const createUser = async ({ firstName, lastName, email, password, roleName }) => {
     try {
-      let RoleId = null;
-      if (roleName) {
-        const role = await Role.findOne({
-          where: { name: roleName }
-        });
-        console.log('role:', role)
-        if (role) {
-          RoleId = role.id;
+        let RoleId = null;
+        if (roleName) {
+            const role = await Role.findOne({ where: { name: roleName } });
+            if (role) {
+                RoleId = role.id;
+            } else {
+                throw new Error('Role does not exist');
+            }
         }
-      }
-  
-      const newUser = await User.create({
-        firstName,
-        lastName,
-        email,
-        passwordHash: password,
-        RoleId
-      });
-      
-      return { user: newUser, error: null };
+
+        const newUser = await User.create({
+            firstName,
+            lastName,
+            email,
+            passwordHash: password,
+            RoleId
+        });
+
+        const userResponse = { ...newUser.toJSON(), passwordHash: undefined };
+
+        return { user: { ...userResponse }, error: null };
     } catch (error) {
-      console.error('Error creating user:', error);
-      return { user: null, error };
+        console.error('Error creating user:', error);
+        return { user: null, error: error.message };
     }
-  };
+};
+
 
 async function updateUser(id, firstName, lastName, email, password, roleName) {
     try {
@@ -112,4 +116,38 @@ async function updateUser(id, firstName, lastName, email, password, roleName) {
     }
   }
 
-export default { getUsers, getUserById, getUsersByRoleName, createUser, updateUser, deleteUser };
+async function loginUser(email, password) {
+  try {
+      const user = await User.findOne({ where: { email } });
+      if (!user) {
+          throw new Error('User not found');
+      }
+
+      const isValid = await bcrypt.compare(password, user.passwordHash);
+      if (!isValid) {
+          throw new Error('Invalid password');
+      }
+
+      const token = jwt.sign(
+          { userId: user.id, role: user.roleName },
+          process.env.JWT_SECRET,
+          { expiresIn: '1h' }
+      );
+
+      return {
+          user: {
+              id: user.id,
+              email: user.email,
+              role: user.RoleID
+          },
+          token,
+          error: null
+      };
+  } catch (error) {
+      console.error('Error logging in user:', error);
+      return { user: null, token: null, error: error.message };
+  }
+}
+
+
+export default { getUsers, getUserById, getUsersByRoleName, createUser, updateUser, deleteUser, loginUser };
