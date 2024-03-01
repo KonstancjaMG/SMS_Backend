@@ -6,8 +6,7 @@ const Attendance = sequelize.define('Attendance', {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
-  },
-    date: { type: DataTypes.DATE }
+  }
   });
 
 export default Attendance

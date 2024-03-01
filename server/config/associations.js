@@ -8,6 +8,7 @@ import Enrollment from '../models/enrollment.js';
 import Material from '../models/material.js';
 import Attendance from '../models/attendance.js';
 import Grade from '../models/grade.js';
+import Schedule from '../models/schedule.js';
 
 // User associations
 User.hasOne(Profile);
@@ -45,6 +46,10 @@ ClassAssignment.belongsTo(Class);
 
 // Attendance associations
 Attendance.belongsTo(Enrollment);
+Attendance.hasMany(Schedule);
+
+// Schedule associations
+Schedule.belongsTo(Attendance);
 
 // Grade associations
 Grade.belongsTo(Enrollment);

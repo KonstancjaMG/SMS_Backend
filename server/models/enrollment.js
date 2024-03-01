@@ -6,8 +6,7 @@ const Enrollment = sequelize.define('Enrollment', {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
-  },
-    grade: { type: DataTypes.INTEGER }
+  }
   });
 
 export default Enrollment
