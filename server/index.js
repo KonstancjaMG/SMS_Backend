@@ -11,6 +11,7 @@ import GradeRouter from './controllers/grade.js'
 import AttendanceRouter from './controllers/attendance.js';
 import MaterialRouter from './controllers/material.js';
 import ReportRouter from './controllers/report.js'
+import RoleRouter from './controllers/role.js'
 
 import express from 'express';
 import cors from 'cors';
@@ -34,6 +35,7 @@ app.use('/api', GradeRouter)
 app.use('/api', AttendanceRouter)
 app.use('/api', MaterialRouter)
 app.use('/api', ReportRouter)
+app.use('/api', RoleRouter)
 
 app.listen(port, () => {
     console.log(`Server is alive and kicking on port ${port}.`)
