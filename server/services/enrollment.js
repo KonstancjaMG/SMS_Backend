@@ -2,6 +2,7 @@ import Enrollment from '../models/enrollment.js';
 import User from '../models/user.js';
 import Role from '../models/role.js';
 import Class from '../models/class.js';
+import Schedule from '../models/schedule.js';
 
 const createEnrollment = async (enrollmentData) => {
     const { UserId, ClassId } = enrollmentData;

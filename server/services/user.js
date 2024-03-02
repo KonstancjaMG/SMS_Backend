@@ -1,10 +1,8 @@
 import User from '../models/user.js';
 import Role from '../models/role.js';
 import getRoleId from '../utils/getRole.js';
-import hashPassword from '../utils/hashPassword.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
 
 const getUsers = async () => {
     try {
@@ -94,7 +92,7 @@ async function updateUser(id, firstName, lastName, email, password, roleName) {
         firstName,
         lastName,
         email,
-        passwordHash: password ? await hashPassword(password) : user.passwordHash,
+        passwordHash: password ? await password : user.passwordHash,
         ...(roleName && { RoleId: await getRoleId(roleName) })
       });
   

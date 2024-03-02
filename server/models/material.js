@@ -9,7 +9,9 @@ const Material = sequelize.define('Material', {
   },
     fileName: { type: DataTypes.STRING },
     fileType: { type: DataTypes.STRING },
-    filePath: { type: DataTypes.STRING }
+    filePath: { type: DataTypes.STRING },
+    mimeType: { type: DataTypes.STRING},
+    fileSize: { type: DataTypes.DOUBLE}
   });
 
 export default Material
