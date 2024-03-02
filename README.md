@@ -52,7 +52,7 @@ Develop and deploy a RESTful API for a School Management System that manages stu
 ![DMD drawio](https://github.com/KonstancjaMG/SMS_Backend/assets/143395555/2915ab30-a79e-449a-9a10-b961b314e57f)
 
 # EMD (outdated)
-
+![EMD drawio](https://github.com/KonstancjaMG/SMS_Backend/assets/143395555/6dae2273-7be3-4a4f-80ca-3e56b3f33bb0)
 
 # How to run
 
