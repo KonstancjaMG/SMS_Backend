@@ -48,8 +48,15 @@ Develop and deploy a RESTful API for a School Management System that manages stu
 * Include a .env.example file in the repository for necessary environment variables.
 * The final API should be live on Vercel, with the URL provided in the submission.
 
-# 1. Domain Model Design
+# Domain Model Design
 ![DMD drawio](https://github.com/KonstancjaMG/SMS_Backend/assets/143395555/2915ab30-a79e-449a-9a10-b961b314e57f)
 
+# How to run
 
+### 1. Install all dependencies
+`npm i bcrypt cors dotenv express jsonwebtoken multer mysql2 node-cron nodemailer passport pdfkit sequelize uuid`
+### 2. Setup the container from the root folder
+`docker container up`
+### 3. Start the server
+`npm start`
 
