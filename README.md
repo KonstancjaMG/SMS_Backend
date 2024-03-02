@@ -48,8 +48,11 @@ Develop and deploy a RESTful API for a School Management System that manages stu
 * Include a .env.example file in the repository for necessary environment variables.
 * The final API should be live on Vercel, with the URL provided in the submission.
 
-# Domain Model Design
+# Domain Model Design (outdated)
 ![DMD drawio](https://github.com/KonstancjaMG/SMS_Backend/assets/143395555/2915ab30-a79e-449a-9a10-b961b314e57f)
+
+# EMD (outdated)
+
 
 # How to run
 
