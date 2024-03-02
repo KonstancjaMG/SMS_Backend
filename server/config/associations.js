@@ -8,10 +8,11 @@ import Enrollment from '../models/enrollment.js';
 import Material from '../models/material.js';
 import Attendance from '../models/attendance.js';
 import Grade from '../models/grade.js';
+import Schedule from '../models/schedule.js';
 
 // User associations
 User.hasOne(Profile);
-User.belongsToMany(Role, { through: 'UserRole' });
+User.belongsTo(Role);
 User.hasMany(Notification);
 User.hasMany(Enrollment);
 User.hasMany(ClassAssignment);
@@ -20,18 +21,19 @@ User.hasMany(ClassAssignment);
 Profile.belongsTo(User);
 
 // Role associations
-Role.belongsToMany(User, { through: 'UserRole' });
+Role.hasMany(User);
 
 // Notification associations
 Notification.belongsTo(User);
 
 // Class associations
-Class.hasMany(Material);
+Class.belongsToMany(Material, { through: 'ClassMaterials' });
 Class.hasMany(Enrollment);
 Class.hasMany(ClassAssignment);
+Class.hasOne(Schedule);
 
 // Material associations
-Material.belongsTo(Class);
+Material.belongsToMany(Class, { through: 'ClassMaterials' });
 
 // Enrollment associations
 Enrollment.belongsTo(User);
@@ -45,6 +47,9 @@ ClassAssignment.belongsTo(Class);
 
 // Attendance associations
 Attendance.belongsTo(Enrollment);
+
+// Schedule associations
+Schedule.belongsTo(Class);
 
 // Grade associations
 Grade.belongsTo(Enrollment);

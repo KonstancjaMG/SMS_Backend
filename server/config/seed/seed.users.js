@@ -1,11 +1,6 @@
-import bcrypt from 'bcrypt';
 import User from '../../models/user.js';
 import Role from '../../models/role.js';
-
-async function hashPassword(password) {
-  const salt = bcrypt.genSaltSync(10);
-  return bcrypt.hashSync(password, salt);
-}
+import hashPassword from '../../utils/hashPassword.js';
 
 async function seedUsers() {
   try {
@@ -13,34 +8,45 @@ async function seedUsers() {
     const teacherRole = await Role.findOne({ where: { name: 'teacher' } });
     const studentRole = await Role.findOne({ where: { name: 'student' } });
 
+    console.log(adminRole.id)
+    console.log(studentRole.id)
+    console.log(teacherRole.id)
+
     const adminUser = await User.create({
       firstName: 'Admin',
       lastName: 'Istrator',
       email: 'admin@example.com',
-      passwordHash: await hashPassword('adminPassword'),
+      passwordHash: 'adminPassword',
+      RoleId: adminRole.id
     });
-    await adminUser.addRole(adminRole);
+
+    console.log(adminUser);
 
     const teacherUser = await User.create({
       firstName: 'Teacher',
       lastName: 'Person',
       email: 'teacher@example.com',
-      passwordHash: await hashPassword('teacherPassword'),
+      passwordHash: 'teacherPassword',
+      RoleId: teacherRole.id
     });
-    await teacherUser.addRole(teacherRole);
+
+    console.log(teacherUser);
 
     const studentUser = await User.create({
       firstName: 'Student',
       lastName: 'Learner',
       email: 'student@example.com',
-      passwordHash: await hashPassword('studentPassword'),
+      passwordHash: 'studentPassword',
+      RoleId: studentRole.id
     });
-    await studentUser.addRole(studentRole);
+
+    console.log(studentUser);
 
     console.log('Users and roles associations have been seeded successfully.');
   } catch (error) {
-    console.error('Failed to seed users and roles', error);
+    console.error('Failed to seed users and roles:', error);
   }
 }
+
 
 export default seedUsers;
