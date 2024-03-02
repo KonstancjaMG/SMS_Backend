@@ -38,3 +38,5 @@ app.use('/api', ReportRouter)
 app.listen(port, () => {
     console.log(`Server is alive and kicking on port ${port}.`)
 })
+
+export default app;
