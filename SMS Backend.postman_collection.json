@@ -1,0 +1,1606 @@
+{
+	"info": {
+		"_postman_id": "112de1b7-d0a7-4fa3-83ae-e050bae904f3",
+		"name": "SMS Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31837451"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "users_all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the first user's ID in an environment or global variable\r",
+									"var firstUserId = pm.response.json()[0].id;\r",
+									"pm.globals.set(\"firstUserId\", firstUserId);\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"  var schema = {\r",
+									"    type: \"array\",\r",
+									"    items: {\r",
+									"      type: \"object\",\r",
+									"      properties: {\r",
+									"        id: { type: \"string\" },\r",
+									"        firstName: { type: \"string\" },\r",
+									"        lastName: { type: \"string\" },\r",
+									"        email: { type: \"string\", format: \"email\" },\r",
+									"        passwordHash: { type: \"string\" },\r",
+									"        created_at: { type: \"string\", format: \"date-time\" },\r",
+									"        updated_at: { type: \"string\", format: \"date-time\" },\r",
+									"        RoleId: { type: \"string\" },\r",
+									"        Role: {\r",
+									"          type: \"object\",\r",
+									"          properties: {\r",
+									"            id: { type: \"string\" },\r",
+									"            name: { type: \"string\" },\r",
+									"            createdAt: { type: \"string\", format: \"date-time\" },\r",
+									"            updatedAt: { type: \"string\", format: \"date-time\" }\r",
+									"          },\r",
+									"          required: [\"id\", \"name\", \"createdAt\", \"updatedAt\"]\r",
+									"        }\r",
+									"      },\r",
+									"      required: [\"id\", \"firstName\", \"lastName\", \"email\", \"passwordHash\", \"created_at\", \"updated_at\", \"RoleId\", \"Role\"]\r",
+									"    }\r",
+									"  };\r",
+									"\r",
+									"  var response = pm.response.json();\r",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{vercel}}/api/users",
+							"protocol": "https",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve a list of users from the server. The response will be in JSON format and will include the user's ID, first name, last name, email, password hash, creation and update timestamps, role ID, and role details."
+					},
+					"response": []
+				},
+				{
+					"name": "users_by_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/users/c1d1db92-1eed-454b-b238-875e777e3ec6",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"c1d1db92-1eed-454b-b238-875e777e3ec6"
+							]
+						},
+						"description": "This API endpoint retrieves user information based on the provided user ID. The request should be made using an HTTP GET method to the specified URL. Upon a successful execution, the server will respond with a status code of 200 and a JSON object containing the user's details, including their ID, first name, last name, email, password hash, creation timestamp, update timestamp, role ID, and role details.\n\n### Request\n\n- Method: GET\n- URL: `http://{{vercel}}/api/users/1ae19641-0cf1-442e-b4a4-6f1902a901c1`\n    \n\n### Response\n\n- Status: 200\n- Content-Type: application/json\n- Body:\n    \n    ``` json\n    {\n      \"id\": \"\",\n      \"firstName\": \"\",\n      \"lastName\": \"\",\n      \"email\": \"\",\n      \"passwordHash\": \"\",\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"RoleId\": \"\",\n      \"Role\": {\n        \"id\": \"\",\n        \"name\": \"\",\n        \"createdAt\": \"\",\n        \"updatedAt\": \"\"\n      }\n    }\n    \n     ```"
+					},
+					"response": []
+				},
+				{
+					"name": "users_by_role",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/role/student",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"role",
+								"student"
+							]
+						},
+						"description": "This endpoint sends an HTTP GET request to retrieve information about students' roles. The request should be sent to http://{{vercel}}/api/role/student.\n\nThe response received upon the last execution had a status code of 200 and a content type of application/json. The response body contained an array of objects, each representing a student role. Each object includes the student's ID, first name, last name, email, password hash, creation and update timestamps, RoleId, and details about the associated role.\n\nEnsure that the response body is parsed and processed to extract the relevant information about student roles."
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Admin\",\r\n    \"lastName\": \"Admin\",\r\n    \"email\": \"Admin@gmail.com\",\r\n    \"password\": \"Admin123\",\r\n    \"roleName\": \"administrator\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/users",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "This endpoint allows you to create a new user by sending a POST request to the specified URL.\n\n### Request Body\n\nThe request should include a JSON payload in the raw request body type with the following parameters:\n\n- `firstName` (string): The first name of the user.\n- `lastName` (string): The last name of the user.\n- `email` (string): The email address of the user.\n- `password` (string): The password for the user account.\n- `roleName` (string): The role name for the user.\n    \n\n### Response\n\nUpon successful creation of the user, the endpoint will return a JSON response with the following fields:\n\n- `id` (string): The unique identifier of the created user.\n- `firstName` (string): The first name of the user.\n- `lastName` (string): The last name of the user.\n- `email` (string): The email address of the user.\n- `RoleId` (string): The role ID of the user.\n- `updated_at` (string): The timestamp when the user was last updated.\n- `created_at` (string): The timestamp when the user was created.\n    \n\nThe response status will be 201 indicating successful creation of the user."
+					},
+					"response": []
+				},
+				{
+					"name": "user login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"email\": \"Admin@gmail.com\",\r\n      \"password\": \"Admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/login",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "This HTTP POST request is used to log in to the API. The request should include the user's email and password in the raw request body. Upon successful execution, the API returns a status code of 200 and a JSON response containing a message, user details with ID and email, and a token for authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "user_by_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\":\"Administrator\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/users/1ae19641-0cf1-442e-b4a4-6f1902a901c1",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1ae19641-0cf1-442e-b4a4-6f1902a901c1"
+							]
+						},
+						"description": "## Update User Details\n\nThis endpoint is used to update the details of a specific user.\n\n### Request\n\n- Method: PUT\n- URL: `http://{{vercel}}/api/users/1ae19641-0cf1-442e-b4a4-6f1902a901c1`\n    \n\n#### Request Body\n\n- Type: Raw (application/json)\n    - `firstName`: (string) The first name of the user.\n\n### Response\n\n- Status: 200\n- Content-Type: application/json\n    \n\n#### Response Body\n\n``` json\n{\n    \"user\": {\n        \"id\": \"\",\n        \"firstName\": \"\",\n        \"lastName\": \"\",\n        \"email\": \"\",\n        \"passwordHash\": \"\",\n        \"created_at\": \"\",\n        \"updated_at\": \"\",\n        \"RoleId\": \"\"\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "user_by_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/users/1ae19641-0cf1-442e-b4a4-6f1902a901c1",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1ae19641-0cf1-442e-b4a4-6f1902a901c1"
+							]
+						},
+						"description": "\nThis endpoint sends an HTTP DELETE request to the specified URL to delete a user with the provided ID. Upon successful execution, the server responds with a status code of 200 and a JSON object containing a message.\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROFILE",
+			"item": [
+				{
+					"name": "profile_by_user_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/profile/c1d1db92-1eed-454b-b238-875e777e3ec6",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"c1d1db92-1eed-454b-b238-875e777e3ec6"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve the profile information for a specific user. The response will be in JSON format and will include the user's ID, phone number, address, city, date of birth, creation timestamp, update timestamp, and user ID."
+					},
+					"response": []
+				},
+				{
+					"name": "profile_by_user_id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"phoneNumber\": \"123456789\",\r\n    \"address\": \"Street 123\",\r\n    \"city\": \"City\",\r\n    \"dob\": \"1999-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/profile/c1d1db92-1eed-454b-b238-875e777e3ec6",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"c1d1db92-1eed-454b-b238-875e777e3ec6"
+							]
+						},
+						"description": "This endpoint makes an HTTP POST request to http://{{vercel}}/api/profile/c1d1db92-1eed-454b-b238-875e777e3ec6 to create a new profile. The request should include a JSON payload in the raw request body type with keys for \"phoneNumber\", \"address\", \"city\", and \"dob\".\n\n### Request Body\n\n- phoneNumber (string, optional): The phone number of the user.\n- address (string, optional): The address of the user.\n- city (string, optional): The city of the user.\n- dob (string, optional): The date of birth of the user.\n    \n\nThe endpoint returns a 201 status code upon successful creation, along with a JSON response containing the newly created profile's details, including \"id\", \"phoneNumber\", \"address\", \"city\", \"dob\", \"UserId\", \"updatedAt\", and \"createdAt\".\n\n### Response\n\n- id (string): The unique identifier of the created profile.\n- phoneNumber (string): The phone number of the user.\n- address (string): The address of the user.\n- city (string): The city of the user.\n- dob (string): The date of birth of the user.\n- UserId (string): The user identifier associated with the profile.\n- updatedAt (string): The timestamp when the profile was last updated.\n- createdAt (string): The timestamp when the profile was created."
+					},
+					"response": []
+				},
+				{
+					"name": "profile_by_user_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"city\": \"City2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/profile/c1d1db92-1eed-454b-b238-875e777e3ec6",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"c1d1db92-1eed-454b-b238-875e777e3ec6"
+							]
+						},
+						"description": "This HTTP PUT request is used to update the profile with the specified ID. The request should be made to http://{{vercel}}/api/profile/c1d1db92-1eed-454b-b238-875e777e3ec6.\n\n### Request Body\n\nThe request body should be in raw format and include the following parameter:\n\n- `city`: (string) The updated city information.\n    \n\n### Response\n\nUpon a successful execution, the response will have a status code of 200 and a JSON content type. The response body will include the updated profile information with the following fields:\n\n- `id`: (string) The profile ID\n- `phoneNumber`: (number) The phone number\n- `address`: (string) The address\n- `city`: (string) The updated city information\n- `dob`: (string) The date of birth\n- `createdAt`: (string) The creation timestamp\n- `updatedAt`: (string) The update timestamp\n- `UserId`: (string) The associated user ID"
+					},
+					"response": []
+				},
+				{
+					"name": "profile_by_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/profile/c1d1db92-1eed-454b-b238-875e777e3ec6",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"c1d1db92-1eed-454b-b238-875e777e3ec6"
+							]
+						},
+						"description": "This endpoint sends an HTTP DELETE request to the specified URL to delete a profile with the given ID. Upon successful deletion, it returns a 200 status with an empty JSON response containing a message."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CLASS",
+			"item": [
+				{
+					"name": "class_all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/classes",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"classes"
+							]
+						},
+						"description": "### Get Classes\n\nThis endpoint sends an HTTP GET request to retrieve a list of classes.\n\n#### Response\n\n- Status: 200\n- Content-Type: application/json\n    \n\nThe response body contains an array of objects, each representing a class. Each class object includes the following properties:\n\n- `id` (string): The unique identifier of the class.\n- `title` (string): The title of the class.\n- `createdAt` (string): The timestamp indicating when the class was created.\n- `updatedAt` (string): The timestamp indicating when the class was last updated."
+					},
+					"response": []
+				},
+				{
+					"name": "class_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/classes/77bc575f-3926-43f8-9756-e05a26b3b428",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"classes",
+								"77bc575f-3926-43f8-9756-e05a26b3b428"
+							]
+						},
+						"description": "This endpoint retrieves information about a specific class by making an HTTP GET request to the provided URL. The response will contain the ID, title, creation timestamp, and update timestamp of the class in JSON format."
+					},
+					"response": []
+				},
+				{
+					"name": "class",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"JavaScript\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/classes",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"classes"
+							]
+						},
+						"description": "This endpoint allows you to create a new class by sending an HTTP POST request to the specified URL. The request should include a JSON payload in the raw request body type with the \"title\" parameter.\n\n### Request Body\n\n- title (string, required): The title of the class.\n    \n\n### Response\n\nUpon successful creation, the endpoint returns a 201 status code along with a JSON object containing the details of the newly created class, including its \"id\", \"title\", \"updatedAt\", and \"createdAt\" timestamps."
+					},
+					"response": []
+				},
+				{
+					"name": "class_by_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Python\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/classes/77bc575f-3926-43f8-9756-e05a26b3b428",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"classes",
+								"77bc575f-3926-43f8-9756-e05a26b3b428"
+							]
+						},
+						"description": "This endpoint allows you to update a specific class by sending an HTTP PUT request to the provided URL. The request should include a JSON payload in the raw request body type, with the \"title\" field to update the title of the class.\n\n### Request Body\n\n- title (string, required): The new title for the class.\n    \n\n### Response\n\nUpon a successful update, the endpoint will return a 200 status code with a JSON response containing the updated details of the class, including the \"id\", \"title\", \"createdAt\", and \"updatedAt\" fields."
+					},
+					"response": []
+				},
+				{
+					"name": "class_by_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/classes/88abefac-4f6e-4019-b503-f0f3c37a6c1b",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"classes",
+								"88abefac-4f6e-4019-b503-f0f3c37a6c1b"
+							]
+						},
+						"description": "This endpoint sends an HTTP DELETE request to delete a specific class with the provided ID. Upon successful deletion, the server responds with a status code of 200 and a JSON object containing a message indicating the success of the operation."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CLASS ASSIGNMENT",
+			"item": [
+				{
+					"name": "classAssignment_all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/class-assignments",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"class-assignments"
+							]
+						},
+						"description": "This endpoint sends an HTTP GET request to retrieve the class assignments from the specified API. The response will be in JSON format with an array of objects, each containing the assignment details including ID, creation and update timestamps, user ID, and class ID."
+					},
+					"response": []
+				},
+				{
+					"name": "classAssignment_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/class-assignments/62981f8d-5833-4e7a-bcbd-f50dffc07f81",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"class-assignments",
+								"62981f8d-5833-4e7a-bcbd-f50dffc07f81"
+							]
+						},
+						"description": "This API endpoint sends an HTTP GET request to retrieve class assignments based on a specific ID. The response will be in JSON format with the fields: id, createdAt, updatedAt, UserId, and ClassId."
+					},
+					"response": []
+				},
+				{
+					"name": "classAssignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"6f7c96ca-9be6-441a-bbce-638e6475616c\",\r\n    \"classId\": \"77bc575f-3926-43f8-9756-e05a26b3b428\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/class-assignments/",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"class-assignments",
+								""
+							]
+						},
+						"description": "This HTTP POST request is used to create a new class assignment. The request should be sent to http://{{vercel}}/api/class-assignments/ with a JSON payload in the raw request body type. The payload should include the \"userId\" and \"classId\" fields to specify the user and class for the assignment.\n\n### Request Body\n\n- `userId` (string): The ID of the user for whom the assignment is being created.\n- `classId` (string): The ID of the class for which the assignment is being created.\n    \n\n### Response\n\nUpon successful execution, the response will have a status code of 201 and a JSON content type. The response body will include the details of the newly created assignment, such as the \"id\", \"UserId\", \"ClassId\", \"updatedAt\", and \"createdAt\" fields.\n\nExample:\n\n``` json\n{\n  \"id\": \"assignment_id\",\n  \"UserId\": \"user_id\",\n  \"ClassId\": \"class_id\",\n  \"updatedAt\": \"timestamp\",\n  \"createdAt\": \"timestamp\"\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "classAssignment_by_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"991a4d8d-d37b-4b6f-9577-7ecbb0fe073a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/class-assignments/2bba8abb-04e4-4b15-ab1e-f4994371bc5a",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"class-assignments",
+								"2bba8abb-04e4-4b15-ab1e-f4994371bc5a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "classAssignment_by_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/class-assignments/477f4b0f-7acf-4c80-9dc3-a36ffa9f9bcc",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"class-assignments",
+								"477f4b0f-7acf-4c80-9dc3-a36ffa9f9bcc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ENROLLMENT",
+			"item": [
+				{
+					"name": "enrollment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserId\": \"b8983363-af10-4a14-8f29-a0e84824137b\",\r\n    \"ClassId\": \"77bc575f-3926-43f8-9756-e05a26b3b428\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/enrollments",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"enrollments"
+							]
+						},
+						"description": "### Add Enrollment\n\nThis endpoint allows you to enroll a user in a specific class.\n\n---\n\n**HTTP Request**\n\n`POST http://{{vercel}}/api/enrollments`\n\n**Parameters**\n\n- `UserId` (string, required) - The ID of the user to be enrolled.\n- `ClassId` (string, required) - The ID of the class in which the user will be enrolled.\n    \n\n**Request Body Example**\n\n``` json\n{\n  \"UserId\": \"\",\n  \"ClassId\": \"\"\n}\n\n ```\n\n**Response**\n\n- Status: 201\n- Content-Type: application/json\n    \n\n**Response Body Example**\n\n``` json\n{\n  \"id\": \"\",\n  \"UserId\": \"\",\n  \"ClassId\": \"\",\n  \"updatedAt\": \"\",\n  \"createdAt\": \"\"\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "enrollment_by_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/enrollments/4586fb4c-8634-4d53-89f7-8008915ea5dd",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								"4586fb4c-8634-4d53-89f7-8008915ea5dd"
+							]
+						},
+						"description": "This endpoint retrieves the enrollment details for a specific enrollment ID. It makes an HTTP GET request to the specified URL with the enrollment ID as a path parameter. The response will contain the enrollment details including the user and class information in JSON format."
+					},
+					"response": []
+				},
+				{
+					"name": "enrollment_all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/enrollments/",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								""
+							]
+						},
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve a list of enrollments. The response will be in JSON format and will include an array of enrollment objects. Each enrollment object will contain an ID, creation and update timestamps, user ID, class ID, and details of the user and class associated with the enrollment.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "enrollment_by_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserId\": \"ef5ff808-87dc-44ea-9df4-43c770164864\",\r\n    \"ClassId\": \"3a9555e1-3612-443b-a7e1-80b6aec2fc09\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/enrollments/8be56294-bff1-451d-a735-ccee45b3372e",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								"8be56294-bff1-451d-a735-ccee45b3372e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "enrollment_by_id Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/enrollments/8be56294-bff1-451d-a735-ccee45b3372e",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								"8be56294-bff1-451d-a735-ccee45b3372e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SCHEDULE",
+			"item": [
+				{
+					"name": "schedule_by_class_id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"classId\": \"77bc575f-3926-43f8-9756-e05a26b3b428\",\r\n    \"Monday\": \"19:30:00\",\r\n    \"Tuesday\": \"19:30:00\",\r\n    \"Wednesday\": \"19:30:00\",\r\n    \"Thursday\": \"19:30:00\",\r\n    \"Friday\": \"19:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/schedules/77bc575f-3926-43f8-9756-e05a26b3b428",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"77bc575f-3926-43f8-9756-e05a26b3b428"
+							]
+						},
+						"description": "### Add Schedule\n\nThis endpoint allows you to add a new schedule for a specific class.\n\n#### Request\n\n- Method: POST\n- URL: `http://{{vercel}}/api/schedules/77bc575f-3926-43f8-9756-e05a26b3b428`\n- Headers:\n    - Content-Type: application/json\n- Body (raw, JSON):\n    \n    ``` json\n    {\n      \"classId\": \"\",\n      \"Monday\": \"\",\n      \"Tuesday\": \"\",\n      \"Wednesday\": \"\",\n      \"Thursday\": \"\",\n      \"Friday\": \"\"\n    }\n    \n     ```\n    \n\n#### Response\n\n- Status: 201 Created\n- Headers:\n    - Content-Type: application/json\n- Body (application/json):\n    \n    ``` json\n    {\n      \"id\": \"\",\n      \"Monday\": \"\",\n      \"Tuesday\": \"\",\n      \"Wednesday\": \"\",\n      \"Thursday\": \"\",\n      \"Friday\": \"\",\n      \"ClassId\": \"\",\n      \"updatedAt\": \"\",\n      \"createdAt\": \"\"\n    }\n    \n     ```"
+					},
+					"response": []
+				},
+				{
+					"name": "schedule_by_class_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/schedules/77bc575f-3926-43f8-9756-e05a26b3b428",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"77bc575f-3926-43f8-9756-e05a26b3b428"
+							]
+						},
+						"description": "This endpoint retrieves the schedule with the specified ID. The response will contain the schedule details including ID, Monday, Tuesday, Wednesday, Thursday, Friday, creation and update timestamps, and the associated Class ID."
+					},
+					"response": []
+				},
+				{
+					"name": "schedule_by_teacher_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/schedules/teacher/6f7c96ca-9be6-441a-bbce-638e6475616c",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"teacher",
+								"6f7c96ca-9be6-441a-bbce-638e6475616c"
+							]
+						},
+						"description": "This endpoint retrieves the schedules for a specific teacher. It makes an HTTP GET request to the specified URL with the teacher's ID as a path parameter. The response will be in JSON format and will include an array of objects with keys for assignment ID, class ID, and class title."
+					},
+					"response": []
+				},
+				{
+					"name": "schedule_by_student_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/schedules/student/b8983363-af10-4a14-8f29-a0e84824137b",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"student",
+								"b8983363-af10-4a14-8f29-a0e84824137b"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve the schedules for a specific student. The URL includes the student's unique identifier. The response will be in JSON format and will contain an array of objects, each representing a schedule item. Each schedule item includes the enrollment ID, class ID, and class title."
+					},
+					"response": []
+				},
+				{
+					"name": "schedule_by_class_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"classId\": \"3a9555e1-3612-443b-a7e1-80b6aec2fc09\",\r\n    \"Monday\": \"19:30:00\",\r\n    \"Tuesday\": \"19:30:00\",\r\n    \"Wednesday\": \"19:30:00\",\r\n    \"Thursday\": \"19:30:00\",\r\n    \"Friday\": \"19:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/schedules/3a9555e1-3612-443b-a7e1-80b6aec2fc09",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"3a9555e1-3612-443b-a7e1-80b6aec2fc09"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule_by_class_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/schedules/3a9555e1-3612-443b-a7e1-80b6aec2fc09",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"3a9555e1-3612-443b-a7e1-80b6aec2fc09"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GRADE",
+			"item": [
+				{
+					"name": "grade_by_enrollment_id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grade\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/enrollments/4586fb4c-8634-4d53-89f7-8008915ea5dd/grades",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								"4586fb4c-8634-4d53-89f7-8008915ea5dd",
+								"grades"
+							]
+						},
+						"description": "This endpoint makes an HTTP POST request to enroll a student's grades for a specific enrollment ID. The request should be sent to http://{{vercel}}/api/enrollments/4586fb4c-8634-4d53-89f7-8008915ea5dd/grades.\n\n### Request Body\n\nThe request body should be in raw format and include the \"grade\" parameter to specify the grade for the enrollment.\n\n### Response\n\nUpon successful execution, the endpoint returns a status code of 201 and a JSON response with the enrolled grade details including the \"id\", \"grade\", \"EnrollmentId\", \"updatedAt\", and \"createdAt\" fields."
+					},
+					"response": []
+				},
+				{
+					"name": "grade_by_user_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/users/b8983363-af10-4a14-8f29-a0e84824137b/grades",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"b8983363-af10-4a14-8f29-a0e84824137b",
+								"grades"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve the grades of a specific user. The request should be sent to http://{{vercel}}/api/users/b8983363-af10-4a14-8f29-a0e84824137b/grades.\n\nThe response to the last execution had a status code of 200 and a content type of application/json. The response body included an array of objects, each containing the following keys: \"id\", \"grade\", \"createdAt\", \"updatedAt\", and \"EnrollmentId\". The values for these keys were returned as empty strings or zero."
+					},
+					"response": []
+				},
+				{
+					"name": "grade_by_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grade\":\"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/grades/37945bc5-dff8-4aaa-ac9e-98b98c7de8ce",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"grades",
+								"37945bc5-dff8-4aaa-ac9e-98b98c7de8ce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grade_by_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/grades/2e25ab41-f507-4c36-904c-cb8f83a37d41",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"grades",
+								"2e25ab41-f507-4c36-904c-cb8f83a37d41"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ATTENDANCE",
+			"item": [
+				{
+					"name": "attendance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\":\"2024-02-29\",\r\n    \"enrollmentId\": \"4586fb4c-8634-4d53-89f7-8008915ea5dd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/attendance/",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"attendance",
+								""
+							]
+						},
+						"description": "This API endpoint allows you to make an HTTP POST request to submit attendance data. The request should be sent to http://{{vercel}}/api/attendance/. The request should include a JSON payload in the raw request body type with the keys \"date\" and \"enrollmentId\" to specify the date and enrollment ID for the attendance record.\n\n### Request Body\n\n- `date`: (string) The date for the attendance record.\n- `enrollmentId`: (string) The enrollment ID for the attendance record.\n    \n\nThe API will respond with a status code of 201 and a JSON object in the response body with the following fields:\n\n- `id`: The ID of the attendance record.\n- `EnrollmentId`: The enrollment ID of the attendance record.\n- `date`: The date of the attendance record.\n- `updatedAt`: The timestamp when the record was last updated.\n- `createdAt`: The timestamp when the record was created."
+					},
+					"response": []
+				},
+				{
+					"name": "attendance_by_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/attendance/47406215-5eb4-4dcd-94f6-ad13d0775e83",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"attendance",
+								"47406215-5eb4-4dcd-94f6-ad13d0775e83"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve the attendance information for a specific enrollment. The request should be made to http://{{vercel}}/api/attendance/47406215-5eb4-4dcd-94f6-ad13d0775e83.\n\nThe response will have a status code of 200 and a content type of application/json. The response body will include the attendance details, including the unique identifier (id), date, creation and update timestamps (createdAt, updatedAt), and the EnrollmentId associated with the attendance record."
+					},
+					"response": []
+				},
+				{
+					"name": "attendance_by_id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\":\"2024-02-27\",\r\n    \"enrollmentId\": \"8be56294-bff1-451d-a735-ccee45b3372e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/attendance/0a754c77-4eaf-4a47-99d5-f5ba87a8e23c",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"attendance",
+								"0a754c77-4eaf-4a47-99d5-f5ba87a8e23c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attendance_by_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/attendance/52fc89d6-4a4d-4e91-b3f5-1325452f77eb",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"attendance",
+								"52fc89d6-4a4d-4e91-b3f5-1325452f77eb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attendance_by_enrollment_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/attendance/enrollment/4586fb4c-8634-4d53-89f7-8008915ea5dd",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"attendance",
+								"enrollment",
+								"4586fb4c-8634-4d53-89f7-8008915ea5dd"
+							]
+						},
+						"description": "This HTTP GET request retrieves the attendance enrollment details for a specific ID. The response will be in JSON format and will include the ID, date, creation timestamp, update timestamp, and Enrollment ID."
+					},
+					"response": []
+				},
+				{
+					"name": "attendance_by_class_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/attendance/class/77bc575f-3926-43f8-9756-e05a26b3b428",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"attendance",
+								"class",
+								"77bc575f-3926-43f8-9756-e05a26b3b428"
+							]
+						},
+						"description": "This API endpoint sends an HTTP GET request to retrieve attendance records for a specific class. The request should be made to http://{{vercel}}/api/attendance/class/77bc575f-3926-43f8-9756-e05a26b3b428.\n\nThe response to the request will have a status code of 200 and a content type of application/json. The response body will contain an array of objects, each representing an attendance record. Each object will have properties including id, date, createdAt, updatedAt, and EnrollmentId."
+					},
+					"response": []
+				},
+				{
+					"name": "attendance_by_user_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/attendance/student/b8983363-af10-4a14-8f29-a0e84824137b",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"attendance",
+								"student",
+								"b8983363-af10-4a14-8f29-a0e84824137b"
+							]
+						},
+						"description": "This endpoint retrieves the attendance record for a specific student.\n\n### Request\n\n#### HTTP GET\n\n```\nhttp://{{vercel}}/api/attendance/student/b8983363-af10-4a14-8f29-a0e84824137b\n\n ```\n\n### Response\n\nThe response will have a status code of 200 and a content type of application/json. It will contain an array of attendance records with the following properties:\n\n- id (string): The ID of the attendance record.\n- date (string): The date of the attendance.\n- createdAt (string): The creation timestamp of the record.\n- updatedAt (string): The update timestamp of the record.\n- EnrollmentId (string): The ID of the student's enrollment."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MATERIAL",
+			"item": [
+				{
+					"name": "UPLOAD",
+					"item": [
+						{
+							"name": "upload_by_class_id",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "materialFile",
+											"type": "file",
+											"src": "/C:/Users/konst/Documents/MongoDB_Enterprise_Advanced_Datasheet.pdf"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{vercel}}/api/77bc575f-3926-43f8-9756-e05a26b3b428/upload",
+									"protocol": "http",
+									"host": [
+										"{{vercel}}"
+									],
+									"path": [
+										"api",
+										"77bc575f-3926-43f8-9756-e05a26b3b428",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload_by_class_id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://{{vercel}}/api/3a9555e1-3612-443b-a7e1-80b6aec2fc09/materials",
+									"protocol": "http",
+									"host": [
+										"{{vercel}}"
+									],
+									"path": [
+										"api",
+										"3a9555e1-3612-443b-a7e1-80b6aec2fc09",
+										"materials"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload_by_material_id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://{{vercel}}/api/3a9555e1-3612-443b-a7e1-80b6aec2fc09/materials/6cd0fc0f-730c-4cd0-9a8e-7dbcc5032f9c",
+									"protocol": "http",
+									"host": [
+										"{{vercel}}"
+									],
+									"path": [
+										"api",
+										"3a9555e1-3612-443b-a7e1-80b6aec2fc09",
+										"materials",
+										"6cd0fc0f-730c-4cd0-9a8e-7dbcc5032f9c"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DOWNLOAD",
+					"item": [
+						{
+							"name": "download_by_file_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{vercel}}/api/download/6cd0fc0f-730c-4cd0-9a8e-7dbcc5032f9c",
+									"protocol": "http",
+									"host": [
+										"{{vercel}}"
+									],
+									"path": [
+										"api",
+										"download",
+										"6cd0fc0f-730c-4cd0-9a8e-7dbcc5032f9c"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "REPORT",
+			"item": [
+				{
+					"name": "grades_report_by_student_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/students/b8983363-af10-4a14-8f29-a0e84824137b/grades/report",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"b8983363-af10-4a14-8f29-a0e84824137b",
+								"grades",
+								"report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attendance_report_by_student_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{vercel}}/api/students/b8983363-af10-4a14-8f29-a0e84824137b/attendance/report",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"b8983363-af10-4a14-8f29-a0e84824137b",
+								"attendance",
+								"report"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ROLE",
+			"item": [
+				{
+					"name": "role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the roleId in an environment or global variable\r",
+									"var roleId = responseBody.id;\r",
+									"pm.globals.set(\"roleId\", roleId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"teacher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/roles",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						},
+						"description": "This HTTP POST request is used to create a new role by sending a request to the specified URL. The request should include a JSON payload in the raw request body type with the \"name\" parameter.\n\n### Request Body\n\n- name (string, required): The name of the role to be created.\n    \n\nThe request will return a 201 status code upon successful creation, along with a JSON response containing the details of the newly created role, including its \"id\", \"name\", \"updatedAt\", and \"createdAt\" timestamps."
+					},
+					"response": []
+				},
+				{
+					"name": "roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the roleId in an environment or global variable\r",
+									"var roleId = responseBody.id;\r",
+									"pm.globals.set(\"roleId\", roleId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{vercel}}/api/roles",
+							"protocol": "http",
+							"host": [
+								"{{vercel}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve a list of roles from the server. The response will be in JSON format and will include an array of objects, each containing the properties \"id\", \"name\", \"createdAt\", and \"updatedAt\"."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "vercel",
+			"value": "sms-backend-gules.vercel.app"
+		}
+	]
+}
